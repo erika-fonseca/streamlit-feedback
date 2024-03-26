@@ -1,14 +1,19 @@
 import streamlit as st
 
+from pyspark.context import SparkContext
+from pyspark.sql.session import SparkSession
+sc = SparkContext.getOrCreate()
+spark = SparkSession(sc)
+
 import requests, json
 # send the POST request to create the serving endpoint
 API_ROOT = 'https://' + spark.conf.get("spark.databricks.workspaceUrl")
-API_TOKEN = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().get()
+#API_TOKEN = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().get()
 
 endpoint_name = "databricks-mixtral-8x7b-instruct"
-headers = {"Context-Type": "text/json", "Authorization": f"Bearer {API_TOKEN}"}
 
 def get_response(question="What is Databricks?"):
+    headers = {"Context-Type": "text/json", "Authorization": f"Bearer {API_TOKEN}"}
     data = {
     "messages": [
         {
@@ -23,6 +28,12 @@ def get_response(question="What is Databricks?"):
     )
     response = response.json()["choices"][0]["message"]["content"]
     return response
+
+with st.sidebar:
+    API_TOKEN = st.text_input("Token API Key for Foundational Model", key="chatbot_api_key", type="password")
+    "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
+    "[View the source code](https://github.com/streamlit/llm-examples/blob/main/Chatbot.py)"
+    "[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/streamlit/llm-examples?quickstart=1)"
 
 st.title("💬 Chatbot")
 st.caption("🚀 A streamlit chatbot powered by Databricks Foundational Models")
