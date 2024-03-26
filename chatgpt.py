@@ -21,7 +21,7 @@ def get_response(question="What is Databricks?"):
     response = requests.post(
         url=f"{API_ROOT}/serving-endpoints/{endpoint_name}/invocations", json=data, headers=headers
     )
-    response = response.json()["choices"][0]["message"]["content"]
+    #response = response.json()["choices"][0]["message"]["content"]
     return response
 
 with st.sidebar:
