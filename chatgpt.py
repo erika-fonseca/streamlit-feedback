@@ -8,7 +8,7 @@ API_TOKEN = dbutils.notebook.entry_point.getDbutils().notebook().getContext().ap
 endpoint_name = "databricks-mixtral-8x7b-instruct"
 headers = {"Context-Type": "text/json", "Authorization": f"Bearer {API_TOKEN}"}
 
-def get_response(question="What is Databricks?")
+def get_response(question="What is Databricks?"):
     data = {
     "messages": [
         {
