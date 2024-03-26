@@ -22,7 +22,7 @@ def get_response(question="What is Databricks?", API_TOKEN=""):
         url=f"{API_ROOT}/serving-endpoints/{endpoint_name}/invocations", json=data, headers=headers
     )
     #response = response.json()["choices"][0]["message"]["content"]
-    return response
+    return response.json()
 
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
