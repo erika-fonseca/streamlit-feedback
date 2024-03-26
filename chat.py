@@ -4,7 +4,6 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 import openai
-import streamlit as st
 
 def _submit_feedback(user_response, emoji=None):
     st.toast(f"Feedback submitted: {user_response}", icon=emoji)
