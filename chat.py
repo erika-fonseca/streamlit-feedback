@@ -18,7 +18,7 @@ def chatbot_thumbs_app(streamlit_feedback, debug=False):
             "OpenAI API Key",
             key="chatbot_api_key",
             type="password",
-            value=st.secrets.get("OPENAI_API_KEY"),
+            value="",
         )
 
     if "messages" not in st.session_state:
@@ -81,7 +81,7 @@ def single_prediction_faces_app(streamlit_feedback, debug=False):
             "OpenAI API Key",
             key="chatbot_api_key",
             type="password",
-            value=st.secrets.get("OPENAI_API_KEY"),
+            value="",
         )
 
     if not openai_api_key:
