@@ -3,7 +3,7 @@ from streamlit_feedback import streamlit_feedback
 
 import requests, json
 # send the POST request to create the serving endpoint
-API_ROOT = "https://e2-demo-field-eng.cloud.databricks.com"
+API_ROOT = "https://<DATABRICKS_WORKSPACE_URL>"
 
 endpoint_name = "databricks-mixtral-8x7b-instruct"
 
