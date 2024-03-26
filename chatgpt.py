@@ -21,8 +21,7 @@ def get_response(question="What is Databricks?", API_TOKEN=""):
     response = requests.post(
         url=f"{API_ROOT}/serving-endpoints/{endpoint_name}/invocations", json=data, headers=headers
     )
-    #response = response.json()["choices"][0]["message"]["content"]
-    return response.json()
+    return response.json()["choices"][0]["message"]["content"]
 
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
@@ -45,10 +44,13 @@ if prompt := st.chat_input():
 
     st.session_state.messages.append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
-    #response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
-    print(st.session_state.messages[-1]["content"])
-    st.info(st.session_state.messages[-1]["content"])
-   
     response = get_response(question=st.session_state.messages[-1]["content"], API_TOKEN=openai_api_key)
     st.session_state.messages.append({"role": "assistant", "content": response})
     st.chat_message("assistant").write(response)
+    col1,col2,col3,col4 = st.columns([3,3,0.5,0.5])
+    with col3:
+        if st.button(":thumbsup:"):
+            print("Like")
+    with col4:
+        if st.button(":thumbsdown:"):
+            print("Dislike")
