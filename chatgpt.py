@@ -7,7 +7,7 @@ API_ROOT = "https://e2-demo-field-eng.cloud.databricks.com"
 
 endpoint_name = "databricks-mixtral-8x7b-instruct"
 
-def get_response(question="What is Databricks?"):
+def get_response(question="What is Databricks?", API_TOKEN=""):
     headers = {"Context-Type": "text/json", "Authorization": f"Bearer {API_TOKEN}"}
     data = {
     "messages": [
@@ -25,7 +25,7 @@ def get_response(question="What is Databricks?"):
     return response
 
 with st.sidebar:
-    API_TOKEN = st.text_input("Token API Key for Foundational Model", key="chatbot_api_key", type="password")
+    openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
     "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
     "[View the source code](https://github.com/streamlit/llm-examples/blob/main/Chatbot.py)"
     "[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/streamlit/llm-examples?quickstart=1)"
@@ -39,13 +39,13 @@ for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
 if prompt := st.chat_input():
-    if not API_TOKEN:
+    if not openai_api_key:
         st.info("Please add your OpenAI API key to continue.")
         st.stop()
 
     st.session_state.messages.append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
     #response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
-    response = get_response(question=st.session_state.messages)
+    response = get_response(question=st.session_state.messages, openai_api_key)
     st.session_state.messages.append({"role": "assistant", "content": response})
     st.chat_message("assistant").write(response)
