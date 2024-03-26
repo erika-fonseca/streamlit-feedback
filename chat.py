@@ -6,7 +6,6 @@ import streamlit.components.v1 as components
 import openai
 import streamlit as st
 
-
 def _submit_feedback(user_response, emoji=None):
     st.toast(f"Feedback submitted: {user_response}", icon=emoji)
     return user_response.update({"some metadata": 123})
@@ -362,22 +361,6 @@ def streamlit_feedback(
 if not _RELEASE:
 
     # Added a try-except to make setting up the development environment for this project easier.
-    try:
-        from examples import (
-            bare_bones_app,
-            basic_app,
-            chatbot_thumbs_app,
-            single_prediction_faces_app,
-            streaming_chatbot,
-        )
-    except:
-        from .examples import (
-            bare_bones_app,
-            basic_app,
-            chatbot_thumbs_app,
-            single_prediction_faces_app,
-            streaming_chatbot,
-        )
 
     page_names_to_funcs = {
         "Chatbot": chatbot_thumbs_app,
