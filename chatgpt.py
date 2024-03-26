@@ -2,7 +2,7 @@ import streamlit as st
 
 import requests, json
 # send the POST request to create the serving endpoint
-API_ROOT = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiUrl().get() 
+API_ROOT = 'https://' + spark.conf.get("spark.databricks.workspaceUrl")
 API_TOKEN = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().get()
 
 endpoint_name = "databricks-mixtral-8x7b-instruct"
