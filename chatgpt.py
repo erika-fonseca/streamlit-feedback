@@ -2,7 +2,7 @@ import streamlit as st
 
 import requests, json
 # send the POST request to create the serving endpoint
-API_ROOT = "https://e2-demo-field-eng.cloud.databricks.com/"
+API_ROOT = "https://e2-demo-field-eng.cloud.databricks.com"
 #API_TOKEN = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().get()
 
 endpoint_name = "databricks-mixtral-8x7b-instruct"
