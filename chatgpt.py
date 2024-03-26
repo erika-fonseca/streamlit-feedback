@@ -1,10 +1,5 @@
 import streamlit as st
 
-from pyspark.context import SparkContext
-from pyspark.sql.session import SparkSession
-sc = SparkContext.getOrCreate()
-spark = SparkSession(sc)
-
 import requests, json
 # send the POST request to create the serving endpoint
 API_ROOT = "https://e2-demo-field-eng.cloud.databricks.com/"
