@@ -9,6 +9,7 @@ endpoint_name = "databricks-mixtral-8x7b-instruct"
 
 def _submit_feedback(user_response, emoji=None):
     st.toast(f"Feedback submitted: {user_response}", icon=emoji)
+    st.chat_message("user").write(f"Feedback submitted: {user_response}")
     return user_response.update({"some metadata": 123})
 
 feedback_kwargs = {
