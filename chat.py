@@ -12,7 +12,7 @@ def _submit_feedback():
     st.write(st.session_state.fb_k)
     st.toast("✔️ Feedback received!")
     st.session_state.messages.append({"role": "user", "content": f"Feedback submitted: {st.session_state.fb_k}"})
-    st.chat_message("user").write(st.session_state.fb_k)
+    st.chat_message("user").write(f"Feedback submitted: {st.session_state.fb_k}")
 
 def get_response(question="What is Databricks?", API_TOKEN=""):
     headers = {"Context-Type": "text/json", "Authorization": f"Bearer {API_TOKEN}"}
