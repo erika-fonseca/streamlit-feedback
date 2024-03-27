@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 from streamlit_feedback import streamlit_feedback
 
 import requests, json
@@ -10,16 +11,12 @@ endpoint_name = "databricks-mixtral-8x7b-instruct"
 
 def _submit_feedback(user_response, emoji=None):
     print(f"Feedback submitted: {user_response}")
+    time.sleep(1)
     st.toast(f"Feedback submitted: {user_response}", icon=emoji)
+    time.sleep(1)
     st.chat_message("user").write(f"Feedback submitted: {user_response}")
-    st.session_state.messages.append({"role": "assistant", "content": f"Feedback submitted: {user_response}"})
-    return user_response.update({"some metadata": 123})
-
-feedback_kwargs = {
-        "feedback_type": "thumbs",
-        "optional_text_label": "Please provide extra information",
-        "on_submit": _submit_feedback,
-    }
+    st.session_state.messages.append({"role": "user", "content": f"Feedback submitted: {user_response}"})
+    return user_response.update({"some_metadata": 123})
 
 def get_response(question="What is Databricks?", API_TOKEN=""):
     headers = {"Context-Type": "text/json", "Authorization": f"Bearer {API_TOKEN}"}
@@ -65,5 +62,6 @@ if prompt := st.chat_input():
     feedback = streamlit_feedback(
         feedback_type="thumbs",
         optional_text_label="[Optional] Please provide an explanation",
+        on_submit = _submit_feedback
     )
     feedback
