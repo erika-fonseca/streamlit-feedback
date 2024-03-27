@@ -9,6 +9,7 @@ API_ROOT="https://e2-demo-field-eng.cloud.databricks.com"
 endpoint_name = "databricks-mixtral-8x7b-instruct"
 
 def _submit_feedback(user_response, emoji=None):
+    print(f"Feedback submitted: {user_response}")
     st.toast(f"Feedback submitted: {user_response}", icon=emoji)
     st.chat_message("user").write(f"Feedback submitted: {user_response}")
     st.session_state.messages.append({"role": "assistant", "content": f"Feedback submitted: {user_response}"})
