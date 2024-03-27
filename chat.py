@@ -9,6 +9,10 @@ API_ROOT="https://e2-demo-field-eng.cloud.databricks.com"
 
 endpoint_name = "databricks-mixtral-8x7b-instruct"
 
+def handle_feedback():  
+    st.write(st.session_state.fb_k)
+    st.toast("✔️ Feedback received!")
+    
 def _submit_feedback(user_response, emoji=None):
     print(f"Feedback submitted: {user_response}")
     time.sleep(1)
@@ -16,7 +20,7 @@ def _submit_feedback(user_response, emoji=None):
     time.sleep(1)
     st.chat_message("user").write(f"Feedback submitted: {user_response}")
     st.session_state.messages.append({"role": "user", "content": f"Feedback submitted: {user_response}"})
-    return user_response.update({"some_metadata": 123})
+    return user_response.update({"feedback": user_response})
 
 def get_response(question="What is Databricks?", API_TOKEN=""):
     headers = {"Context-Type": "text/json", "Authorization": f"Bearer {API_TOKEN}"}
@@ -62,6 +66,14 @@ if prompt := st.chat_input():
     feedback = streamlit_feedback(
         feedback_type="thumbs",
         optional_text_label="[Optional] Please provide an explanation",
-        on_submit = _submit_feedback
+        on_submit = _submit_feedback,
+        key='fb_k'
     )
-    feedback
+    print(feedback)
+
+    with st.form('form'):
+        streamlit_feedback(feedback_type="thumbs",
+                            optional_text_label="[Optional] Please provide an explanation", 
+                            align="flex-start", 
+                            key='fb_k')
+        st.form_submit_button('Save feedback', on_click=handle_feedback)
