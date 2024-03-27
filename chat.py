@@ -63,14 +63,6 @@ if prompt := st.chat_input():
     st.session_state.messages.append({"role": "assistant", "content": response})
     st.chat_message("assistant").write(response)
 
-    feedback = streamlit_feedback(
-        feedback_type="thumbs",
-        optional_text_label="[Optional] Please provide an explanation",
-        on_submit = _submit_feedback,
-        key='fb_k'
-    )
-    print(feedback)
-
     with st.form('form'):
         streamlit_feedback(feedback_type="thumbs",
                             optional_text_label="[Optional] Please provide an explanation", 
